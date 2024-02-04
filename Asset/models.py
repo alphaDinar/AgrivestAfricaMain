@@ -1,0 +1,98 @@
+from django.db import models
+from django.utils.text import slugify
+from django.utils import timezone
+from datetime import timedelta
+
+class Partner(models.Model):
+    name = models.CharField(max_length=300)
+    email = models.EmailField()
+    contact = models.CharField(max_length=200)
+    location = models.CharField(max_length=300)
+    date_joined = models.DateTimeField(auto_now_add=True)
+    slug = models.SlugField(max_length=300,blank=True,null=True)
+    def save(self, *args, **kwargs):
+        if self.slug is None:
+            self.slug = slugify(self.name)
+        super().save(*args, **kwargs)
+    def __str__(self):
+        return self.name
+
+class Trade(models.Model):
+    name = models.CharField(max_length=300)
+    price = models.FloatField(default=1)
+    image = models.ImageField(default='default.jpg', upload_to='trade_pics')
+    description = models.TextField(max_length=800)
+    ros_min = models.FloatField()
+    ros_max = models.FloatField()
+    STATUS = (
+        ("Available", "Available"),
+        ("Unavailable", "Unavailable"),
+    )
+    partners = models.ManyToManyField(Partner)
+    status = models.CharField(max_length=40, choices=STATUS, default='Available')
+    start_date = models.DateField(default=timezone.now)
+    end_date = models.DateField(default=timezone.now)
+    slug = models.SlugField(max_length=300,blank=True, null=True)
+    payback_date = models.DateField(blank=True, null=True)
+    scientific_name = models.CharField(max_length=300, blank=True, null=True)
+    payout = models.FloatField(blank=True)
+    
+    def save(self, *args, **kwargs):
+        if self.slug is None:
+             self.slug = slugify(self.name)
+        if self.payback_date is None:
+            self.payback_date = self.end_date + timedelta(days=14)
+        super().save(*args, **kwargs)
+    def __str__(self):
+        return self.name
+
+class Farm(models.Model):
+    name = models.CharField(max_length=300)
+    image = models.ImageField(default='default.jpg', upload_to='farmCrop_pics')
+    price = models.FloatField()
+    ros_min = models.FloatField()
+    ros_max = models.FloatField()
+    start_date = models.DateField(default=timezone.now)
+    end_date = models.DateField(default=timezone.now)
+    description = models.TextField(max_length=800)
+    partners = models.ManyToManyField(Partner)
+    STATUS = (
+        ("Available", "Available"),
+        ("Unavailable", "Unavailable")
+    )
+    status = models.CharField(max_length=40, choices=STATUS, default="Available")
+    slug = models.SlugField(max_length=300,blank=True, null=True)
+    payback_date = models.DateField(blank=True, null=True)
+    scientific_name = models.CharField(max_length=300, blank=True, null=True)
+    payout = models.FloatField(blank=True)
+
+    def save(self, *args, **kwargs):
+        if self.slug == None:
+            self.slug = slugify(self.name)
+        if self.payback_date is None:
+            self.payback_date = self.end_date + timedelta(days=14)
+        super().save(*args, **kwargs)
+    def __str__(self):
+        return self.name
+
+class Produce(models.Model):
+    name = models.CharField(max_length=300)
+    price = models.FloatField(default=1)
+    image = models.ImageField(default='default.jpg', upload_to='produce_pics')
+    description = models.TextField(max_length=800)
+    STATUS = (
+        ("Available", "Available"),
+        ("Unavailable", "Unavailable"),
+    )
+    status = models.CharField(max_length=40, choices=STATUS, default='Available')
+    date_added = models.DateTimeField(auto_now_add=True)
+    slug = models.SlugField(max_length=300,blank=True, null=True)
+    scientific_name = models.CharField(max_length=300, blank=True, null=True)
+
+    def save(self, *args, **kwargs):
+        if self.slug == None:
+            self.slug = slugify(self.name)
+        super().save(*args, **kwargs)
+    def __str__(self):
+        return self.name
+

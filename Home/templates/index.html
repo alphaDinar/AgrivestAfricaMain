@@ -1,0 +1,459 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  {% include 'meta.html' %}
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" />
+
+  <link rel="stylesheet" href="{% static 'home/index.css' %}">
+
+  <head>
+    <style>
+      .card-img-top {
+        height: 250px;
+        width: 300px;
+      }
+
+      html,
+      body,
+      header,
+      .view {
+        height: 90%;
+
+      }
+
+
+      @media (max-width: 740px) {
+
+        html,
+        body,
+        header,
+        .view {
+          height: 500px;
+        }
+      }
+
+      @media (min-width: 800px) and (max-width: 850px) {
+
+        html,
+        body,
+        header,
+        .view {
+          height: 500px;
+        }
+      }
+
+      .btn .fa {
+        margin-left: 3px;
+      }
+
+      .top-nav-collapse {
+        background: -moz-linear-gradient(45deg, rgba(4, 2, 17, 0.7), rgba(231, 216, 9, 0.7) 100%);
+        background: -webkit-linear-gradient(45deg, rgba(39, 126, 4, 0.7), rgba(168, 117, 7, 0.7) 100%);
+        background: -webkit-gradient(linear, 45deg, from(rgba(2, 168, 10, 0.7)), to(rgba(29, 210, 177, 0.7)));
+        background: -o-linear-gradient(45deg, rgba(26, 77, 6, 0.7), rgba(148, 110, 7, 0.7) 100%);
+        background: linear-gradient(to 45deg, rgba(4, 68, 4, 0.7), rgba(27, 194, 12, 0.7) 100%);
+
+      }
+
+      .navbar:not(.top-nav-collapse) {
+        background: transparent !important;
+      }
+
+      @media (max-width: 991px) {
+        .navbar:not(.top-nav-collapse) {
+          background: green !important;
+        }
+      }
+
+      .btn-white {
+        color: black !important;
+      }
+
+
+
+      .rgba-gradient {
+        background: -moz-linear-gradient(45deg, rgba(42, 155, 7, 0.7), rgba(2, 141, 13, 0.7) 100%);
+        background: -webkit-linear-gradient(45deg, rgba(23, 100, 4, 0.7), rgba(1, 78, 5, 0.7) 100%);
+        background: -webkit-gradient(linear, 45deg, from(rgba(24, 122, 5, 0.7)), to(rgba(32, 167, 149, 0.2)));
+        background: -o-linear-gradient(90deg, rgba(38, 99, 3, 0.7), rgba(2, 100, 10, 0.7) 100%);
+        background: linear-gradient(to 45deg, rgba(10, 54, 2, 0.7), rgba(6, 122, 16, 0.7) 100%);
+      }
+
+      .rgba-gradient1 {
+        background: -moz-linear-gradient(45deg, rgba(57, 221, 16, 0.7), rgba(19, 77, 5, 0.7) 60%);
+        background: -webkit-linear-gradient(45deg, rgba(14, 233, 25, 0.7), rgba(3, 46, 3, 0.7) 40%);
+        background: -webkit-gradient(linear, 45deg, from(rgba(7, 226, 36, 0.7)), to(rgba(103, 224, 87, 0.5)));
+        background: -o-linear-gradient(45deg, rgba(60, 230, 8, 0.2), rgba(20, 85, 3, 0.7) 50%);
+        background: linear-gradient(to 45deg, rgba(57, 238, 11, 0.7), rgba(9, 61, 4, 0.7) 20%);
+      }
+
+      .card-img-top {
+        height: 250px;
+        width: 300px;
+      }
+
+      .box1 {
+        margin-bottom: 2rem;
+      }
+    </style>
+  </head>
+
+  <header>
+    {% include 'navbar.html' %}
+
+
+    <!-- Full Page Intro -->
+    <div class="view"
+      style="background-image: url('https://res.cloudinary.com/dvnemzw0z/image/upload/v1672048210/media/farmCrop_pics/corn-isolated_93675-33173_x98pnk.webp'); background-repeat: no-repeat; background-size: cover; background-position: center center;">
+      <!-- Mask & flexbox options-->
+      <div class="mask rgba-gradient d-flex justify-content-center align-items-center">
+        <!-- Content -->
+        <div class="container">
+          <br>
+          <br>
+          <br>
+          <br>
+
+          <!--Grid row-->
+          <div class="row">
+            <!--Grid column-->
+            <div class="col-md-6 white-text text-center text-md-left mt-xl-5 mb-5 ">
+              <h1 class="h1-responsive font-weight-bold mt-sm-5 text-left animated tada slower">Join Agrivest Africa
+              </h1>
+              <hr class="hr-light">
+              <h6 class="mb-4">
+                Agrivest Africa is an equity crowd-funding platform focused on connecting agrivestors and small to
+                medium scale farmers, farms and commodities in Africa. Our goal is to maximize our agrivestors returns
+                and continue to sustainably improve the yield of our farmers and aggregators
+              </h6>
+              <h5><b>Join As:</b></h5>
+              <a class="btn btn-outline-white btn-rounded " href="{% url 'register_page' %}">An Agrivestor</a>
+            </div>
+          </div>
+          <br>
+          <br>
+        </div>
+        <!--Grid row-->
+      </div>
+      <!-- Content -->
+    </div>
+    <!-- Mask & flexbox options-->
+    </div>
+    <!-- Full Page Intro -->
+  </header>
+  <!-- Main navigation -->
+</head>
+
+<body>
+  <br>
+  <br>
+  <br>
+
+  <section class="section-preview container">
+    <h3 class="font-weight-bold mb-4 text-center green-text">What We Farm</h3>
+    <!--Carousel Wrapper-->
+    <div id="multi-item-example" class="carousel slide carousel-multi-item" data-ride="carousel">
+
+      <!--Controls-->
+      <div class="controls-top">
+        <a class="btn-floating" href="#multi-item-example" data-slide="prev"><i
+            class="fas fa-chevron-left green"></i></a>
+        <a class="btn-floating" href="#multi-item-example" data-slide="next"><i
+            class="fas fa-chevron-right green"></i></a>
+      </div>
+      <!--/.Controls-->
+
+      <!--Indicators-->
+      <ol class="carousel-indicators">
+        <li data-target="#multi-item-example" data-slide-to="0" class="active"></li>
+        <li data-target="#multi-item-example" data-slide-to="1"></li>
+      </ol>
+      <!--/.Indicators-->
+
+      <!--Slides-->
+      <div class="carousel-inner" role="listbox">
+
+        <!--First slide-->
+        <div class="carousel-item active text-center">
+
+          {% for trade in slide1 %}
+          <div class="col-md-4  overlay zoom"">
+          <div class=" card mb-2">
+            <img class="card-img-top" src="{{trade.image.url}}" alt="Card image cap" width="320px" height="320px">
+            <div class="card-body">
+              <center>
+                {% if trade.status == 'Available' %}
+                <a class="btn rgba-gradient1 btn-rounded btn-sm animated bounce white-text"
+                  href="{% url 'makeFarm_page' trade.slug %}">Available</a>
+                {% else %}
+                <a class="btn btn-danger btn-rounded btn-sm">Sold Out</a>
+                {% endif %}
+              </center>
+              <hr>
+              <center>
+                <h5 class="card-title font-weight-bold mb-4 green-text ">{{trade.name}}<br> <span
+                    class="badge badge-success mb-2">{{trade.scientific_name}}</span></h5>
+              </center>
+              <p class="card-text">{{trade.description|slice:":150"}}...</p>
+            </div>
+            <br>
+          </div>
+        </div>
+        {% endfor %}
+
+      </div>
+      <!--/.First slide-->
+
+      <!--Second slide-->
+
+      <div class="carousel-item">
+        {% for trade in slide2 %}
+        <div class="col-md-4  overlay zoom"">
+            <div class=" card mb-2">
+          <img class="card-img-top" src="{{trade.image.url}}" alt="Card image cap" width="320px" height="320px">
+          <div class="card-body">
+            <center>
+              {% if trade.status == 'Available' %}
+              <a class="btn rgba-gradient1 btn-rounded btn-sm animated bounce white-text"
+                href="{% url 'makeFarm_page' trade.slug %}">Available</a>
+              {% else %}
+              <a class="btn btn-danger btn-rounded btn-sm">Sold Out</a>
+              {% endif %}
+            </center>
+            <hr>
+            <center>
+              <h5 class="card-title font-weight-bold mb-4 green-text ">{{trade.name}}<br> <span
+                  class="badge badge-success mb-2">{{trade.scientific_name}}</span></h5>
+            </center>
+            <p class="card-text">{{trade.description|slice:":150"}}...</p>
+          </div>
+          <br>
+        </div>
+      </div>
+      {% endfor %}
+
+    </div>
+    <!--/.Second slide-->
+    </div>
+    <!--/.Slides-->
+
+    </div>
+    <!--/.Carousel Wrapper-->
+  </section>
+  <hr>
+
+  <section class="section-preview container">
+    <h3 class="font-weight-bold mb-4 text-center green-text">What We Trade</h3>
+    <!--Carousel Wrapper-->
+    <div id="carouselExampleSlidesOnly" class="carousel slide" data-ride="carousel" data-interval="2000">
+      <div class="carousel-inner">
+        <!-- First slide -->
+        <!--Slides-->
+        <div class="carousel-inner" role="listbox">
+
+          <!--First slide-->
+          <div class="carousel-item active text-center">
+            <div class="row">
+              <div class="col-md-4 overlay zoom ">
+                {% for i in min_slide1 %}
+                <div class="card mb-2 ">
+                  <a href="{% url 'makeTrade_page' i.slug %}">
+                    <img class="card-img-top" src="{{i.image.url}}" alt="Card image cap" height="250px" width="100%">
+                  </a>
+                </div>
+                {% endfor %}
+              </div>
+              <div class="col-md-4 overlay zoom  text-center">
+                {% for i in min_slide2 %}
+                <div class="card mb-2 ">
+                  <a href="{% url 'makeTrade_page' i.slug %}">
+                    <img class="card-img-top" src="{{i.image.url}}" alt="Card image cap" height="250px" width="100%">
+                  </a>
+                </div>
+                {% endfor %}
+              </div>
+
+              <div class="col-md-4 overlay zoom text-center">
+                {% for i in min_slide3 %}
+                <div class="card mb-2 ">
+                  <a href="{% url 'makeTrade_page' i.slug %}">
+                    <img class="card-img-top" src="{{i.image.url}}" alt="Card image cap" height="250px" width="100%">
+                  </a>
+                </div>
+                {% endfor %}
+              </div>
+            </div>
+          </div>
+          <!--/.First slide-->
+
+
+
+
+        </div>
+        <!--/.Slides-->
+
+      </div>
+      <!--/.Carousel Wrapper-->
+    </div>
+
+  </section>
+
+  </div>
+  <br>
+
+
+
+
+  <!-- Jumbotron -->
+  <div class="card card-image"
+    style="background-image: url(' https://res.cloudinary.com/dvnemzw0z/image/upload/v1679863211/main/close-up-different-legumes-bowls_1205-86_fjcjxs.webp');">
+    <div class="text-white text-center rgba-gradient py-5 px-4">
+      <div class="py-5">
+
+        <!-- Content -->
+        <p class="mb-4 pb-2 px-md-5 mx-md-5">
+          As seen in the above benefits, the farming and agriculture industry overall can really benefit from
+          implementation of such an IoT solution or platform. Not only is a smart agriculture solution the innovative
+          farming method of today, it is the key solution to the growing concern of the global population’s food
+          consumption and environmental footprint.
+          comfort zone as well</p>
+        <a class="btn btn-outline-white btn-rounded " href="{% url 'register_page' %}">AsAn Agrivestor</a>
+      </div>
+    </div>
+  </div>
+  <!-- Jumbotron -->
+
+  <br>
+
+  </div>
+  </section>
+
+  <div class="container z-depth-1 my-5">
+
+    <section class="text-center py-5">
+
+      <p class="mb-4 pb-2 lead font-weight-bold">Our Payment Options</p>
+
+      <!-- Logo carousel -->
+      <div id="carouselExampleSlidesOnly" class="carousel slide" data-ride="carousel" data-interval="1800">
+        <div class="logo_swiper swiper">
+          <div class="swiper-wrapper">
+            <div class="swiper-slide">
+              <img src="https://res.cloudinary.com/dvnemzw0z/image/upload/v1680194165/main/square-logo_zcwrzs.png">
+            </div>
+            <div class="swiper-slide">
+              <img
+                src="https://res.cloudinary.com/dvnemzw0z/image/upload/v1680191802/main/MTN-Momo-e1584721116128_uloix4.jpg">
+            </div>
+            <div class="swiper-slide">
+              <img
+                src="https://res.cloudinary.com/dvnemzw0z/image/upload/v1680194259/main/715a50637f972f320d59755b45b02edd_y4gmqx.png">
+            </div>
+            <div class="swiper-slide">
+              <img src="https://res.cloudinary.com/dvnemzw0z/image/upload/v1680192117/main/unnamed_yfrive.png">
+            </div>
+            <div class="swiper-slide">
+              <img src="https://res.cloudinary.com/dvnemzw0z/image/upload/v1680191981/main/VISA_f7egql.jpg">
+            </div>
+            <div class="swiper-slide">
+              <img
+                src="https://res.cloudinary.com/dvnemzw0z/image/upload/v1680192015/main/MasterCard_early_1990s_logo_fc5lqo.png">
+            </div>
+            <div class="swiper-slide">
+              <img src="https://res.cloudinary.com/dvnemzw0z/image/upload/v1680192504/main/GhQR-logo_i64niz.jpg">
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+    <style>
+      .logo_swiper {
+        width: 100%;
+        display: flex;
+        align-items: center;
+        height: 250px;
+        /* border: 1px solid black; */
+      }
+
+      .logo_swiper .swiper-slide {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        height: 230px;
+        box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
+      }
+
+      .logo_swiper .swiper-slide img {
+        padding: 10px 0;
+        width: 80%;
+        height: 200px;
+      }
+    </style>
+    <script src="https://cdn.jsdelivr.net/npm/swiper@9/swiper-bundle.min.js"></script>
+    <script>
+      window.onresize = () => {
+        var min = window.innerWidth
+        makeLogoSwiper(min)
+      }
+      window.onload = () => {
+        var min = window.innerWidth
+        makeLogoSwiper(min)
+      }
+
+      const makeLogoSwiper = (min) => {
+        if (min < 800) {
+          var slide_num = 1
+        } else {
+          var slide_num = 3
+        }
+        var logo_swiper = new Swiper('.logo_swiper', {
+          direction: 'horizontal',
+          loop: true,
+          autoplay: {
+            delay: 3000
+          },
+          speed: 1500,
+          slidesPerView: slide_num,
+          spaceBetween: 0,
+        });
+      }
+
+    </script>
+  </div>
+  <br>
+  {% include 'low_nav.html' %}
+
+
+
+  <script type="text/javascript"
+    src="https://mdbcdn.b-cdn.net/wp-content/themes/mdbootstrap4/docs-app/js/bundles/4.20.0/compiled.min.js"></script>
+
+  <script type="text/javascript"
+    src="https://mdbcdn.b-cdn.net/wp-content/themes/mdbootstrap4/docs-app/js/dist/search-v4/search.min.js"></script>
+  <script src="https://mdbcdn.b-cdn.net/wp-content/themes/mdbootstrap4/docs-app/js/dist/main.min.js"></script>
+
+
+  <script>
+
+    $('.carousel.carousel-multi-item.v-2 .carousel-item').each(function () {
+      var next = $(this).next();
+      if (!next.length) {
+        next = $(this).siblings(':first');
+      }
+      next.children(':first-child').clone().appendTo($(this));
+
+      for (var i = 0; i < 4; i++) {
+        next = next.next();
+        if (!next.length) {
+          next = $(this).siblings(':first');
+        }
+        next.children(':first-child').clone().appendTo($(this));
+      }
+    });
+  </script>
+
+</body>
+
+</html>

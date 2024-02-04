@@ -1,0 +1,128 @@
+{% extends "Dashboard/dashboard.html" %}
+{% load static %}
+{% load humanize %}
+  {% block cssBlock %}
+  <link rel="stylesheet" href="{% static 'dashboard/tradeLog.css' %}">
+  {% endblock cssBlock %}
+
+  {% block sideBar %}
+  {% include 'Dashboard/sideBar.html' %}
+
+  {% endblock sideBar %}
+  {% block main %}
+  <section class="main">
+    <div class="main_cover"></div>
+    <nav class="mini_nav">
+      <div id="left_tag_2" class="left_tag_2" style="display: flex;"><i class="material-symbols-outlined">menu_open</i></div>
+      <a href="{% url 'trades_page' %}" class="material-symbols-outlined">shopping_cart</a>
+      <a href="{% url 'farms_page' %}" class="material-symbols-outlined">agriculture</a>
+      <a href="{% url 'produce_page' %}" class="material-symbols-outlined">store</a>
+    </nav>
+    <section class="main_top">
+      <div class="mt_left">
+        <div class="box mt1" id="mt_box">
+          <i class="material-symbols-outlined">numbers</i>
+          <p>Total Trades</p>
+          <span>{{trades.count|intcomma}}</span>
+        </div>
+        <div class="box mt2" id="mt_box">
+          <i class="material-symbols-outlined">payments</i>
+          <p>Total Bought</p>
+          <span>GH₵{{trades_bought|intcomma}}</span>
+        </div>
+        <div class="box mt3" id="mt_box">
+          <i class="material-symbols-outlined">account_balance_wallet</i>
+          <p>Total Sold</p>
+          <span> GH₵{{trades_sold|intcomma}}</span>         
+          {% if trades_bal > '0' %}
+          <p style="color:#7ac691;" id="trade_bal">+ {{trades_bal|intcomma}}</p>
+          {% else %}
+          <p style="color:#ff6364;" id="trade_bal">{{trades_bal|intcomma}}</p>
+          {% endif %}
+        </div>
+        <div class="box chartBox" >
+          <div style="display: flex; justify-content: center; align-items: center;">
+            <canvas id="myChart"></canvas>
+          </div>
+        </div>
+      </div>
+    </section>
+    <section class="main_low" >
+      <section class="prod_box">
+        <form class="prod_box_h" method="post">
+          <p>Trades <br> </p>
+            {% csrf_token %}
+            <div class="input_field">
+              <button type="submit"><i class="material-symbols-outlined">search</i></button>
+              <input type="text" placeholder="Search Here" name="trans_name">
+            </div>
+            <select name="status_select">
+              <option selected hidden value="none">Filter</option>
+              <option value="Pending">Pending</option>
+              <option value="Active">Active</option>
+              <option value="Completed">Completed</option>
+            </select>
+          <button id="prod_box_tag" type="button"><i class="material-symbols-outlined">arrow_downward</i></button>
+        </form>
+        <div class="prod_box_list">      
+          {% if trades %}
+            {% for trade in trades %}
+            <a href="{% url 'tradeLog_info' trade.slug %}" id="prod_a">
+              <div class="top">
+                <p>
+                  <span id="s1">{{trade.units|intcomma}} units</span>
+                  <span id="s2">{{trade.name}}</span>
+                </p>
+                <div>
+                  {% if trade.status == 'Pending' %}
+                  <span id="s1" style="color: rgb(36, 194, 115);">Pay here</span>
+                  <div id="stat_tag" style="background: #ff6364;"></div>
+                  {% elif trade.status == 'Active' %}
+                  <span id="s1" style="color: rgb(36, 194, 115);">{{time|timesince:trade.end_date}} left</span>
+                  <div id="stat_tag" style="background: #00acea;"></div>
+                  {% else %}
+                  <div id="stat_tag" style="background: #aeecc1;"></div>
+                  {% endif %}
+                    
+                </div>
+              </div>
+              <div class="mid">
+                <img src="{{trade.trade.image.url}}" alt="">
+              </div>
+              <div class="low">
+                <p><span id="s1">Cost</span> <span id="s2">GH₵{{trade.total_cost|intcomma}}</span></p>
+                <p><span id="s1">Ros%</span> <span id="s2">{{trade.profit_range_min}} - {{trade.profit_range_max}}</span></p>
+              </div>
+            </a>
+            {% endfor %}
+            {% else %}
+            <a href="{% url 'trades_page' %}" class="prompt_box">
+              <img src="https://res.cloudinary.com/dvnemzw0z/image/upload/v1679867668/main/fresh-peanuts_144627-16149_p3mvbm.webp" alt="">
+              <button>Sponsor A Trade</button>
+            </a>
+            {% endif %}         
+      </section>
+    </section>
+  </section>
+  {% endblock main %}
+
+  {% block scriptBlock %}
+  <script src="{% static 'dashboard/swiper.js' %}"></script>
+  <script>
+    const ctx = document.getElementById('myChart');
+    var penCount = parseInt('{{pend_count}}')
+    var actCount = parseInt('{{act_count}}')
+    var compCount = parseInt('{{comp_count}}')
+    new Chart(ctx, {
+      type: 'doughnut',
+      data: {
+        datasets: [{
+          label: 'Order Count',
+          backgroundColor : ['#aeecc1','#00acea','#ff6364'],
+          data: [compCount,actCount,penCount],
+          borderWidth: 1
+        }]
+      },
+    });
+  </script>
+  {% endblock scriptBlock %}

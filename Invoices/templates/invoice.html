@@ -1,0 +1,210 @@
+{% load humanize %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+
+<body>
+  <main>
+    <header>
+      <select id="status" onchange="filterInvoice(event.target.value.toLowerCase())">
+        <!-- <option hidden>Invoice Status</option> -->
+        <option value="all">All</option>
+        <option value="pending">Pending</option>
+        <option value="active">Active</option>
+      </select>
+
+      <p>
+        <span>Total Received</span> ::
+      <strong id="totalBox"></strong>
+      </p>
+
+      <!-- <select id="payment">
+        <option hidden>Payment Status</option>
+        <option value="">Unpaid</option>
+        <option value="">Paid</option>
+      </select> -->
+    </header>
+
+    <section class="segmentBox">
+      <strong>Farms</strong>
+      <table>
+        <tr>
+          <th>Customer</th>
+          <th>Email</th>
+          <th>Contact</th>
+          <th>Farm</th>
+          <th>Total</th>
+          <th>Ros(GHS)</th>
+          <th>Start Date</th>
+          <th>End Date</th>
+          <th>Time left</th>
+          <th>Status</th>
+        </tr>
+        {% for farm in farms %}
+        <tr id="invoice" data-status="{{farm.status}}" data-cost="{{farm.total_cost}}">
+          <td>{{farm.customer.username}}</td>
+          <td>{{farm.customer.email}}</td>
+          <td>{{farm.customer.profile.contact}}</td>
+          <td>{{farm.farm}}</td>
+          <td>{{farm.total_cost}}</td>
+          <td>{{farm.totalreturn_min}} - {{farm.totalreturn_max}}</td>
+          <td>{{farm.start_date|date:'d b,Y'}}</td>
+          <td>{{farm.end_date|date:'d b,Y'}}</td>
+          <td>--</td>
+          <td>{{farm.status}}</td>
+        </tr>
+        {% endfor %}
+      </table>
+    </section>
+
+    <section class="segmentBox">
+      <strong>Trades</strong>
+      <table>
+        <tr>
+          <th>Customer</th>
+          <th>Email</th>
+          <th>Contact</th>
+          <th>Trade</th>
+          <th>Total</th>
+          <th>Ros(GHS)</th>
+          <th>Start Date</th>
+          <th>End Date</th>
+          <th>Time left</th>
+          <th>Status</th>
+        </tr>
+        {% for trade in trades %}
+        <tr id="invoice" data-status="{{trade.status}}" data-cost="{{trade.total_cost}}">
+          <td>{{trade.customer.username}}</td>
+          <td>{{trade.customer.email}}</td>
+          <td>{{trade.customer.profile.contact}}</td>
+          <td>{{trade.trade}}</td>
+          <td>{{trade.total_cost}}</td>
+          <td>{{trade.totalreturn_min}} - {{trade.totalreturn_max}}</td>
+          <td>{{trade.start_date|date:'d b,Y'}}</td>
+          <td>{{trade.end_date|date:'d b,Y'}}</td>
+          <td>--</td>
+          <td>{{trade.status}}</td>
+        </tr>
+        {% endfor %}
+      </table>
+    </section>
+
+  </main>
+
+  <script>
+    const invoices = document.querySelectorAll('#invoice');
+    const totalBox = document.getElementById('totalBox');
+
+    const filterInvoice = (val) => {
+      
+      invoices.forEach((el) => {
+        if(val === 'all'){
+          el.style.display = 'table-row';
+        }else{
+          if (el.dataset.status.toLowerCase() === val) {
+            el.style.display = 'table-row';
+          } else {
+            el.style.display = 'none';
+          }
+        }
+      })
+    }
+
+
+    const invoiceTotal = () => {
+      var total = 0
+      invoices.forEach((el)=>{
+        if(el.dataset.status.toLowerCase() === 'active'){
+          total += parseInt(el.dataset.cost);
+        }
+      })
+      totalBox.innerHTML = `GHS ${total}`;
+    }
+
+    invoiceTotal();
+  </script>
+
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Pacifico&display=swap');
+    @import url('https://fonts.googleapis.com/css2?family=Alegreya+Sans+SC&display=swap');
+
+    * {
+      margin: 0;
+      padding: 0;
+      border: none;
+      outline: none;
+      text-decoration: none;
+      scroll-behavior: smooth;
+      font-family: 'Poppins', Arial, sans-serif;
+    }
+
+    :root {
+      --pass: #0cd570;
+      --theme: #3f4448;
+    }
+
+
+    body::-webkit-scrollbar,
+    body>* ::-webkit-scrollbar {
+      width: 8px;
+      border-radius: 100px;
+      background: #3f4448;
+    }
+
+    body::-webkit-scrollbar-thumb,
+    body>* ::-webkit-scrollbar-thumb {
+      border-radius: 100px;
+      background: lightgray;
+    }
+    header{
+      display: flex;
+      gap: 2rem;
+    }
+    header p{
+      display: flex;
+      /* flex-direction: column; */
+      align-items: center;
+      gap: 0.5rem;
+    }
+    main {
+      width: 90%;
+      padding: 5vh 5%;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 2rem;
+    }
+
+    table {
+      border-spacing: 10px;
+    }
+
+    .segmentBox {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+
+    strong {
+      margin: auto;
+      font-size: 1.2rem;
+      text-decoration: underline;
+      text-align: center;
+    }
+
+    td {
+      background: var(--theme);
+      color: var(--pass);
+      padding: 5px 10px;
+      text-align: center;
+    }
+  </style>
+
+</body>
+
+</html>

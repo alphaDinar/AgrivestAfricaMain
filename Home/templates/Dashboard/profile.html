@@ -1,0 +1,393 @@
+{% extends "Dashboard/dashboard.html" %}
+{% load static %}
+{% load humanize %}
+
+  {% block cssBlock %}
+    <link rel="stylesheet" href="{% static 'dashboard/profile.css' %}">
+  {% endblock cssBlock %}
+
+  {% block main %}
+  <form class="main" enctype="multipart/form-data" method="post" style="background: white;">
+    <nav class="mini_nav">
+      <div id="left_tag_2" class="left_tag_2" style="display: flex;"><i class="material-symbols-outlined">menu_open</i></div>
+      <a href="{% url 'trades_page' %}" class="material-symbols-outlined">shopping_cart</a>
+      <a href="{% url 'farms_page' %}" class="material-symbols-outlined">agriculture</a>
+      <a href="{% url 'produce_page' %}" class="material-symbols-outlined">store</a>
+    </nav>
+    <style>
+      .main{
+        gap: 0;
+      }
+    </style>
+    <div class="main_cover"></div>
+    <section class="profile_top" style="background-image: url(https://res.cloudinary.com/dvnemzw0z/image/upload/v1679868901/main/plant_coins_kfcqcw.avif);">
+      <div class="profile_pic">
+        {% if pro_exists %}
+        <div id="pic_box" style="background-image: url({{pro_info.profile_pic.url}}) ;border-radius: 50%; width: 100px; height: 100px; background-position: center; background-size: cover;"></div>
+        {% else %}
+        <div id="pic_box" style="background-image: url('https://res.cloudinary.com/dvnemzw0z/image/upload/v1679868666/main/hand-draw-beautiful-girls-holding-planet-earth-watercolor-design_1035-20580_gjlyhm.webp'); border-radius: 50%; width: 100px; height: 100px; background-position: center; background-size: cover;"></div>
+        {% endif %}
+        <label for="profile_pic" id="pro_pic_label">ADD PHOTO</label>
+        <input type="file" accept="image/*" class="pro_set" name="profile_pic" id="profile_pic">
+      </div>
+    </section>
+    <section class="profile_form_box" >
+      {% csrf_token %}
+      <div class="profile_form_header">
+          <span style="color: rgb(58, 162, 58);"> {{user.username}}'s Profile</span>
+          <img src="https://res.cloudinary.com/dvnemzw0z/image/upload/v1679868592/main/agr_buyjkl.jpg" alt="" height="50px" width="50px">
+      </div>
+      <section class="profile_form swiper">
+        <div class="part">
+          <section>
+            <div class="input_field">
+              <span class="sh">First Name</span>
+              <div id="con">
+                <div id="in_tag">
+                  <i class="material-symbols-outlined">signature</i>
+                </div>
+                <input type="text" name="first_name" placeholder="First Name" required
+                {% if pro_exists %}
+                value="{{pro_info.first_name}}"
+                {% endif %}
+                >
+              </div>
+            </div>
+            <style>
+              
+            </style>
+            <div class="input_field">
+              <span class="sh">Last Name</span>
+              <div id="con">
+                <div id="in_tag">
+                  <i class="material-symbols-outlined">signature</i>
+                </div>
+                <input type="text" name="last_name" placeholder="Last Name" required
+                {% if pro_exists %}
+                value="{{pro_info.last_name}}"
+                {% endif %}
+                >
+              </div>
+            </div>
+          </section>
+          <section>
+            <div class="input_field">
+              <span class="sh">Other Name</span>
+              <div id="con">
+                <div id="in_tag">
+                  <i class="material-symbols-outlined">signature</i>
+                </div>
+                <input type="text" name="other_name" placeholder="Other Name" required
+                {% if pro_exists %}
+                  value="{{pro_info.other_name}}"
+                {% endif %}
+                >
+              </div>
+            </div>
+            <div class="input_field">
+              <span class="sh">Gender</span>
+              <div id="con">
+                <div id="in_tag">
+                  <i class="material-symbols-outlined">person_play</i>
+                </div>
+                {% if pro_exists %}
+                <input type="text" name="gender" value="{{pro_info.gender}}" readonly>
+                {% else %}
+                <select name="gender" required>
+                  <option selected hidden value="none">Gender</option>
+                  <option value="male">male</option>
+                  <option value="female">female</option>
+                </select>
+                {% endif %}
+              </div>
+            </div>
+          </section>
+          <section>
+            <div class="input_field">
+              <span class="sh">Relationship</span>
+              <div id="con">
+                <div id="in_tag">
+                  <i class="material-symbols-outlined">partner_exchange</i>
+                </div>
+                {% if pro_exists %}
+                <input type="text" name="relationship" value="{{pro_info.relationship}}" readonly>
+                {% else %}
+                <select name="relationship" required>
+                  <option selected hidden value="none">Relationship</option>
+                  <option value="single">single</option>
+                  <option value="married">married</option>
+                </select>
+                {% endif %}
+              </div>
+            </div>
+            <div class="input_field">
+              <span class="sh">Profession</span>
+              <div id="con">
+                <div id="in_tag">
+                  <i class="material-symbols-outlined">work</i>
+                </div>
+                <input type="text" name="profession" placeholder="Profession" required
+                {% if pro_exists %}
+                value="{{pro_info.profession}}"
+                {% endif %}
+                >
+              </div>
+            </div>
+          </section>
+        </div>
+        <div class="part">
+          <section>
+            <div class="input_field">
+              <span class="sh">Email</span>
+              <div id="con">
+                <div id="in_tag">
+                  <i class="material-symbols-outlined">alternate_email</i>
+                </div>
+                <input type="email" name="email" placeholder="email" required
+                {% if pro_exists %}
+                value="{{pro_info.email}}"
+                {% endif %}>
+              </div>
+            </div>
+            <div class="input_field">
+              <span class="sh">Contact</span>
+              <div id="con">
+                <div id="in_tag">
+                  <i class="material-symbols-outlined">phone_iphone</i>
+                </div>
+                <input type="text" name="contact" placeholder="contact" required
+                {% if pro_exists %}
+                value="{{pro_info.contact}}"
+                {% endif %}>
+              </div>
+            </div>
+          </section>
+          <section>
+            <div class="input_field">
+              <span class="sh">Date Of Birth</span>
+              <div id="con">
+                <div id="in_tag">
+                  <i class="material-symbols-outlined">calendar_month</i>
+                </div>
+                {% if pro_exists %}
+                <input type="text" name="dob" id="dob" data-date="{{pro_info.dob|date:'Y-m-d'}}" required value="{{pro_info.dob}}" readonly>
+                {% else %}
+                <input id="dob" type="text" name="dob" placeholder="Date Of Birth" required>
+                {% endif %}
+              </div>
+            </div>
+            <div class="input_field">
+              <span class="sh">Nationality</span>
+              <div id="con">
+                <div id="in_tag">
+                  <i class="material-symbols-outlined">flag</i>
+                </div>
+                <input type="text" name="nationality" placeholder="Nationality" required 
+                {% if pro_exists %}
+                value="{{pro_info.nationality}}" readonly
+                {% endif %}>
+              </div>
+            </div>
+          </section>
+          <section>
+            <div class="input_field">
+              <span class="sh">Country Of Residence</span>
+              <div id="con">
+                <div id="in_tag">
+                  <i class="material-symbols-outlined">flag_circle</i>
+                </div>
+                <input type="text" name="cor" placeholder="Country of Residence" required
+                {% if pro_exists %}
+                value="{{pro_info.cor}}"
+                {% endif %}>
+              </div>
+            </div>
+            <div class="input_field">
+              <span class="sh">Address</span>
+              <div id="con">
+                <div id="in_tag">
+                  <i class="material-symbols-outlined">home_pin</i>
+                </div>
+                <input type="text" name="address" placeholder="Residential Address" required
+                {% if pro_exists %}
+                value="{{pro_info.address}}"
+                {% endif %}>
+              </div> 
+            </div>
+          </section>
+          <section>
+            <div class="input_field">
+              <span class="sh">ID Card</span>
+              <div id="con">
+                <div id="in_tag">
+                  <i class="material-symbols-outlined">badge</i>
+                </div>
+                {% if pro_exists %}
+                <input type="text" name="id_card" value="{{pro_info.id_card}}" readonly>
+                {% else %}
+                <select name="id_card" required>
+                  <option selected hidden value="none">ID Card</option>
+                  <option value="Passport">Passport</option>
+                  <option value="National ID">National ID</option>
+                  <option value="Driver's  License">Driver's  License</option>
+                </select>
+                {% endif %}
+              </div>
+            </div>
+            <div class="input_field">
+              <span class="sh">ID Number</span>
+              <div id="con">
+                <div id="in_tag" class="hid_tag">
+                  <i class="material-symbols-outlined">pin</i>
+                </div>
+                <input  type="text"  id="hid" name="id_num" placeholder="ID Number"  required
+                {% if pro_exists %}
+                value="{{pro_info.id_number}}" readonly
+                {% endif %}
+                >
+              </div>
+            </div>
+          </section>
+        </div>
+        <div class="part">
+          <section>
+            <div class="input_field">
+              <span class="sh">Next Of Kin</span>
+              <div id="con">
+                <div id="in_tag">
+                  <i class="material-symbols-outlined">group</i>
+                </div>
+                <input type="text" name="nok" placeholder="Next of kin" required
+                {% if pro_exists %}
+                value="{{pro_info.next_of_kin}}"
+                {% endif %}>
+              </div>
+            </div>
+            <div class="input_field">
+              <span class="sh">Next of kin's relation</span>
+              <div id="con">
+                <div id="in_tag">
+                  <i class="material-symbols-outlined">family_restroom</i>
+                </div>
+                <input type="text" name="nok_relation" placeholder="next of kin's relation" required
+                {% if pro_exists %}
+                value="{{pro_info.nok_relation}}"
+                {% endif %}>
+              </div>
+            </div>
+          </section>
+          <section>
+            <div class="input_field">
+              <span class="sh">Next of kin's Contact</span>
+              <div id="con">
+                <div id="in_tag">
+                  <i class="material-symbols-outlined">phone_iphone</i>
+                </div>
+                <input type="text" name="nok_contact" placeholder="next of kin's contact" required
+                {% if pro_exists %}
+                value="{{pro_info.nok_contact}}"
+                {% endif %}>
+              </div>
+            </div>
+            <div class="input_field">
+              <span class="sh">Referral code</span>
+              <div id="con">
+                <div id="in_tag">
+                  <i class="material-symbols-outlined">123</i>
+                </div>
+                <input type="text" name="referral" placeholder="Referral code"
+                {% if pro_exists %}
+                value="{{pro_info.referral}}"
+                {% endif %}>
+              </div>
+            </div>
+          </section>
+        </div>
+        <div class="part">
+          <section style="justify-content: space-around;">
+            <div class="id_box">
+              {% if pro_exists %}
+              <span class="sh">ID Photo Front</span>
+              <div id="pic_box" style="background-image: url({{pro_info.id_pic_front.url}});"></div>
+              {% else %}
+              <input type="file" name="id_pic_front" class="pro_set" id="id_front" accept="image/*"  required>
+              <label for="id_front">
+                ID Photo front
+              </label>
+              <div id="pic_box" style="background-image: url('https://res.cloudinary.com/dvnemzw0z/image/upload/v1679868720/main/id_card_tst1bq.avif');"></div>
+              {% endif %}
+            </div>
+            <style>
+              .part .id_box #pic_box{
+                background-position: center;
+                background-size: cover;
+                width: 250px;
+                height: 200px;
+              }
+            </style>
+            <div class="id_box">
+              {% if pro_exists %}
+              <span class="sh">ID Photo Back</span>
+              <div id="pic_box" style="background-image: url({{pro_info.id_pic_back.url}});"></div>
+              {% else %}
+              <input type="file" name="id_pic_back" class="pro_set" id="id_back" accept="image/*" required>
+              <label for="id_back">
+                ID Photo back
+              </label>
+              <div id="pic_box" style="background-image: url(https://res.cloudinary.com/dvnemzw0z/image/upload/v1679868720/main/id_card_tst1bq.avif);"></div>
+              {% endif %}
+            </div>
+          </section>
+          <section>
+            <div class="input_field" >
+              <button type="submit" id="sub_but">Save</button>
+            </div>
+          </section>
+        </div>
+      </section>   
+    </section>   
+  </form>
+  {% endblock main %}
+
+  
+  {% block scriptBlock %}
+    <script>
+      var pro_exists = '{{pro_exists|safe}}'
+      const form = document.querySelector('.main')
+      const dob = document.getElementById('dob')
+      const pro_set = document.querySelectorAll('.pro_set')
+
+      if(pro_exists === 'True'){
+        document.getElementById('hid').type = 'password'
+        document.querySelector('.hid_tag').onclick =()=>{
+          if(document.getElementById('hid').type === 'password'){
+            document.getElementById('hid').type = 'text'
+          }else{
+            document.getElementById('hid').type = 'password'
+          }
+        }
+        pro_set.forEach(pro=>{
+          pro.required = false
+        })
+        form.onsubmit =()=>{
+          dob.value = dob.dataset.date
+        }
+      }else{
+        dob.onfocus =()=>{
+          dob.type = 'date'
+        }
+        dob.onmouseleave =()=>{
+          dob.type = 'text'
+        }
+      }
+
+      const inputs_h = document.getElementsByTagName('input');
+      const inputs = [...inputs_h]
+      inputs.forEach(input=>{
+        if(input.readOnly){
+          input.style.background = 'rgb(225, 255, 225)'
+          input.style.cursor = 'pointer'
+        }
+      })
+    </script>
+  {% endblock scriptBlock %}

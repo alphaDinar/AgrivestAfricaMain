@@ -1,0 +1,90 @@
+{% extends "Farms/farms.html" %}
+
+{% block backgroundImage %}
+      style="background-image: url('https://res.cloudinary.com/dvnemzw0z/image/upload/v1679864256/main/golden-potatoes-levitate-white-background_485709-65_tj2nqo.webp'); background-repeat: no-repeat; background-size: cover; background-position: center center;"
+{% endblock backgroundImage %}
+
+{% block header %}
+  <h1 class="h1-responsive font-weight-bold mt-sm-5 text-left animated tada slower">Buy Produce</h1>
+{% endblock header %}
+
+{% block caution %}
+  Produce on our market place gives the Buyer assurance of supply of quality and required quantity. Produce
+  on our platform are sanctioned by the GCX and Ghana standard Authority (GSA) and thus making our produce safe
+  for both local consumption and exportation.
+{% endblock caution %}
+
+{% block placeholder %}
+  placeholder="Search Product"
+{% endblock placeholder %}
+          
+
+  {% block content %}    
+  <div class="container">
+    <small>
+      {% for page in pageList %}
+      <div class="row">
+        {% for produce in page %}
+        <div class="col-md-3 box2">
+          <div class="card-wrapper">
+            <div id="card-1" class="card card-rotating text-center">
+  
+              <!-- Front Side -->
+              <div class="face front">
+  
+                <!-- Image-->
+                <div class="card-up">
+                  <img class="card-img-top"
+                    src="{{produce.image.url}}"
+                    alt="Image with a photo of clouds.">
+                </div>
+                <!-- Content -->
+                <div class="card-body">
+                  <a class="btn rgba-gradient1 btn-rounded btn-sm white-text" href="{% url 'buyProduce_page' produce.slug %}">Buy Now</a>
+                  <hr>
+                  <h5 class="card-title font-weight-bold mb-4 green-text ">{{produce.name}}<br> <span class="badge badge-success mb-2">({{produce.scientific_name}})</span> </h5>
+                  <dl class="row">
+                    <dd class="col-sm-6">
+                      Cost Per Unit
+                    </dd>
+                    <dd class="col-sm-6 green-text">
+                      <span class="symbol">GH₵ </span>  <span class="value">{{produce.price}}</span>
+                    </dd>
+                  </dl>
+                  <hr>
+                  <!-- Triggering button -->
+                  <a class="rotate-btn" data-card="card-1"><i class="fas fa-redo-alt"></i> click here to go back</a>
+                </div>
+              </div>
+              <!-- Front Side -->
+  
+              <!-- Back Side -->
+              <div class="face back">
+                <div class="card-body">
+                  <h5 class="green-text">Details</h5>
+                  <hr>
+                  <p>
+                    {{produce.description}}
+                  <a href="{% url 'buyProduce_page' produce.slug %}" class="btn rgba-gradient1 btn-rounded btn-sm white-text">Buy Here</a>
+                  <br>
+                  <a class="rotate-btn" data-card="card-1"><i class="fas fa-undo"></i> click here to go back</a>
+                </div>
+              </div>
+              <!-- Back Side -->
+  
+            </div>
+          </div>
+        </div> 
+        {% endfor %}
+
+      </div>
+      <hr>
+      <br>
+      <br>
+      {% endfor %}
+    </small>
+    <hr>
+  </div>
+      
+  {% endblock content %}
+ 

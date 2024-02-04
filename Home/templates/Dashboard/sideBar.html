@@ -1,0 +1,61 @@
+{% load  humanize %}
+<section class="left">
+  <div id="left_tag" class="left_tag"><i class="material-symbols-outlined">menu_open</i></div>
+  <div id="left_close_tag"><i class="material-symbols-outlined">close</i></div>
+  <div class="top" id="left_top">
+    <a href="{% url 'homepage' %}">AgrivestAfrica</a>
+  </div>
+  <div class="user_con">
+    <div class="uc_top">
+      <p>welcome Back</p>
+      <span>{{user.username}}</span>
+      <span>{{name}}</span>
+    </div>
+    <hr id="uc_hr">
+    <div class="uc_low">
+      <p>Total Transactions</p>
+      <span>GH₵ {{total_trans}}</span>
+    </div>
+  </div>
+  <div class="menu">
+    <a href="{% url 'dashboard' %}" id="menu_ab"><i class="material-symbols-outlined">overview</i><span id="menu_a">overview</span></a>
+    <a href="{% url 'profile_page' %}" id="menu_ab"><i class="material-symbols-outlined">photo_camera_front</i><span id="menu_a">profile</span></a>
+    <a id="menu_ab"><i class="material-symbols-outlined">attach_money</i><span id="menu_a">Transactions</span><i class="material-symbols-outlined" id="expand">expand_more</i></a>
+      <div id="exp_menu">
+        <a style="color: rgb(48, 106, 128);" href="{% url 'farmLog_page' %}"><i class="material-symbols-outlined">psychiatry</i><p>Farms</p></a>
+        <a style="color: rgb(48, 106, 128);" href="{% url 'tradeLog_page' %}"><i class="material-symbols-outlined">receipt_long</i><p>Trades</p></a>
+        <a style="color: rgb(48, 106, 128);" href="{% url 'produceLog_page' %}"><i class="material-symbols-outlined">shopping_bag</i><p>My Produce</p></a>
+      </div>
+      <hr id="uc_hr">
+    <a id="menu_ab" href="{% url 'farms_page' %}"><i class="material-symbols-outlined">agriculture</i><span style="font-weight: 600;" id="menu_a">Sponsor Farm</span></a>
+    <a id="menu_ab" href="{% url 'trades_page' %}" ><i class="material-symbols-outlined">shopping_cart</i><span style="font-weight: 600;" id="menu_a">Sponsor Trade</span></a>
+    <a id="menu_ab" href="{% url 'produce_page' %}"><i class="material-symbols-outlined">store</i><span style="font-weight: 600;" id="menu_a">Buy Produce</span></a>
+    <a id="menu_ab" href="{% url 'inbox_page' %}"><i class="material-symbols-outlined">forward_to_inbox</i><span id="menu_a">Inbox</span></a>
+  </div>
+  <div class="low">
+    <a style="color: salmon;" href="{% url 'logout' %}"><i class="material-symbols-outlined">logout</i><span id="logout">Logout</span></a>
+  </div>
+</section>
+
+<style>
+  
+
+  @media all and (max-width:900px){
+    #left_close_tag{
+      display: flex;
+      position: absolute;
+      right: 10px;
+      top: 10px;
+      font-size: 10rem;
+      color: #4caf50;
+      cursor: pointer;
+      /* font-size: 3.5rem; */
+      /* background: black; */
+    }
+    #left_close_tag i{
+      font-size: 1.8rem
+    };
+  }
+
+  
+</style>

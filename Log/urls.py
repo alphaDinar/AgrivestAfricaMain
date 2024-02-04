@@ -1,0 +1,24 @@
+from django.urls import path
+from . import views
+
+urlpatterns = [
+    path('register/',views.register,name='register_page'),
+    # path('f_register/',views.f_register,name='f_register_page'),
+    # path('o_register/',views.o_register,name='o_register_page'),
+
+    path('forgot_password/',views.forgot_password, name='forgot_password'),
+    path('reset_password/<token>/', views.reset_password, name='reset_password'),
+
+    path('login/', views.login_user, name='login_page'),
+    path('logout/',views.logout_user, name='logout_page'),
+
+    path('map/',views.map,name='map_page'),
+
+    path('welcome', views.welcome),
+    #path('mail/',views.mail, name='mail')
+    path('tes/', views.tes),
+
+    path('hubtel/', views.hubtel),
+
+    path('temp/', views.temp),
+]

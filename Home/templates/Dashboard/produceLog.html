@@ -1,0 +1,87 @@
+{% extends "Dashboard/dashboard.html" %}
+{% load static %}
+{% load humanize %}
+  {% block cssBlock %}
+  <link rel="stylesheet" href="{% static 'dashboard/tradeLog.css' %}">
+  {% endblock cssBlock %}
+
+    {% block main %}
+    <section class="main">
+      <div class="main_cover"></div>
+      <nav class="mini_nav">
+        <div id="left_tag_2" class="left_tag_2" style="display: flex;"><i class="material-symbols-outlined">menu_open</i></div>
+        <a href="{% url 'trades_page' %}" class="material-symbols-outlined">shopping_cart</a>
+        <a href="{% url 'farms_page' %}" class="material-symbols-outlined">agriculture</a>
+        <a href="{% url 'produce_page' %}" class="material-symbols-outlined">store</a>
+      </nav>
+      <section class="main_top">
+        <div class="mt_left">
+          <div class="box mt1" id="mt_box">
+            <i class="material-symbols-outlined">numbers</i>
+            <p>Total Produces</p>
+            <span>{{produces.count|intcomma}}</span>
+          </div>
+          <div class="box mt2" id="mt_box">
+            <i class="material-symbols-outlined">payments</i>
+            <p>Total Bought</p>
+            <span>GH₵{{produces_bought|intcomma}}</span>
+          </div>
+        </div>
+      </section>
+      <section class="main_low" >
+        <section class="prod_box">
+          <form class="prod_box_h" method="post">
+            {% csrf_token %}
+            <p>Produces</p>
+            <div class="input_field">
+              <button type="submit"><i class="material-symbols-outlined">search</i></button>
+              <input type="text" placeholder="Search Here" name="trans_name">
+            </div>
+            <button id="prod_box_tag" type="button"><i class="material-symbols-outlined">arrow_downward</i></button>
+          </form>
+          <div class="prod_box_list">           
+            {% if produces %}
+              {% for produce in produces %}
+              <a href="{% url 'produceLog_info' produce.slug %}" id="prod_a">
+                <div class="top">
+                  <p>
+                    <span id="s1">{{produce.units|intcomma}} units</span>
+                    <span id="s2">{{produce.name}}</span>
+                  </p>
+                  <div>         
+                    <div id="stat_tag" style="background: #aeecc1;"></div>           
+                  </div>
+                </div>
+                <div class="mid">
+                  <img src="{{produce.image_url}}" alt="">
+                </div>
+                <div class="low">
+                  <p><span id="s1">Cost</span> <span id="s2">GH₵{{produce.total_cost|intcomma}}</span></p>
+                </div>
+              </a>
+              {% endfor %}
+            {% else %}
+            <a href="{% url 'produce_page' %}" class="prompt_box">
+              <img src="https://res.cloudinary.com/dvnemzw0z/image/upload/v1679867665/main/istockphoto-537642468-612x612_ck4tdi.jpg" alt="">
+              <button>Buy Produce</button>
+            </a>
+            {% endif %}            
+        </section>
+      </section>     
+    </section>
+
+    <style>
+      @media all and (max-width:870px){
+        form{
+          justify-content: center !important;
+        }
+      }
+    </style>
+
+    {% endblock main %}
+      
+  {% block scriptBlock %}
+  <script src="{% static 'dashboard/swiper.js' %}"></script>
+  {% endblock scriptBlock %}
+    
+  

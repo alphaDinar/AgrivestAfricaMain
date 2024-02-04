@@ -1,0 +1,72 @@
+{% extends "navbar.html" %}
+<!-- {% load static %} -->
+
+{% block forex %}
+<li class="nav-item dropdown">
+  <a class="nav-link dropdown-toggle modeBox" id="navbarDropdownMenuLink" data-toggle="dropdown"
+    aria-haspopup="true" aria-expanded="false">GHS ₵</a>
+  <div class="dropdown-menu dropdown-success dropBox" aria-labelledby="navbarDropdownMenuLink">
+    <button class="dropdown-item" data-mode="usd" ><img src="https://res.cloudinary.com/dvnemzw0z/image/upload/v1681765250/main/us_idon5i.png"  height="20px" width="20px">$</button>
+    <button class="dropdown-item" data-mode="gbp"><img src="https://res.cloudinary.com/dvnemzw0z/image/upload/v1681765412/main/uk_fr3emi.png"  height="20px" width="20px">£</button>
+    <button class="dropdown-item" data-mode="ngn"><img src="https://res.cloudinary.com/dvnemzw0z/image/upload/v1681765346/main/niger_mhsn4g.png"  height="20px" width="20px">₦</button>
+    <button class="dropdown-item" data-mode="kes"><img src="https://res.cloudinary.com/dvnemzw0z/image/upload/v1681765322/main/ken_ncfp3w.png"  height="20px" width="20px">K</button>
+    <!-- <button class="dropdown-item" data-mode="rw"><img src="https://res.cloudinary.com/dvnemzw0z/image/upload/v1681765467/main/rw_zsthrf.png"  height="20px" width="20px">R₣</button> -->
+    <button class="dropdown-item" data-mode="ghs" ><img src="https://res.cloudinary.com/dvnemzw0z/image/upload/v1681765225/main/gh_prdqp3.png"  height="20px" width="20px">₵</button>
+  </div>
+</li>
+
+
+<script>
+  const modeBox = document.querySelector('.modeBox')
+  const curs = document.querySelectorAll('.dropBox button')
+  var curDay = new Date().getDate()
+  var curMonth = new Date().getMonth()
+  var currencyStamp = `${curDay},${curMonth}`
+
+  const getCurrency =()=>{
+    var myHeaders = new Headers();
+    myHeaders.append("Authorization", "Bearer 25765489b0914c329a129ac15aef40e6");
+
+    var requestOptions = {
+    method: 'GET',
+    headers: myHeaders,
+    redirect: 'follow'
+    };
+
+    fetch("https://openexchangerates.org/api/latest.json?app_id=25765489b0914c329a129ac15aef40e6", requestOptions)
+    .then(response => response.text())
+    .then(result => {
+      console.log('memem')
+      localStorage.setItem('usd', (JSON.parse(result).rates['GHS']).toFixed(2))
+      localStorage.setItem('gbp', ((1/JSON.parse(result).rates['GBP']) * (JSON.parse(result).rates['GHS'])).toFixed(2))
+      localStorage.setItem('ngn', ((1/JSON.parse(result).rates['NGN']) * (JSON.parse(result).rates['GHS'])).toFixed(2))
+      localStorage.setItem('kes', ((1/JSON.parse(result).rates['KES']) * (JSON.parse(result).rates['GHS'])).toFixed(2))
+    })
+    .catch(error => console.log('error', error));
+  } 
+  getCurrency()
+
+  const makeForex =()=>{
+    if(!localStorage.getItem('currencyStamp')){
+      localStorage.setItem('currencyStamp', currencyStamp)
+      // getCurrency()
+    }else{
+      if(localStorage.getItem('currencyStamp') != currencyStamp){
+        // getCurrency()
+      }else{
+        var empty = 'already exists'
+      }
+    }
+  }
+
+  const dropBox = document.querySelector('.dropBox')
+  dropBox.onclick =()=>{
+    console.log('ascac')
+    makeForex()
+  }
+</script>
+{% endblock forex %}
+
+
+
+  
